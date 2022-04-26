@@ -1,0 +1,38 @@
+LaTeX mintafájl szakdolgozat és diplomamunkáknak az SZTE
+Informatikai Tanszekcsoportja által megkövetelt formai
+követelményeinek megvalósításához.
+
+
+A fájl használatához szükséges a magyar.ldf, ami letölthetõ a
+
+             http://www.math.bme.hu/latex/
+
+weblapról. Ez a fájl a forrás könyvtárába másolandó.
+
+Hasznos információk, linekek, LaTeX leírások a
+
+                    www.latex.lap.hu
+
+weboldalon vannak.
+
+
+A fájlok a következõk:
+
+LEIRAS.TXT            ez a fájl
+latexminta.tex        tex forrásfájl
+abra.eps              beillesztendõ grafika (Encapsulated Postcript formátumban)
+magyar.ldf            magyar nyelvi támogatás 2005/05/12 v1.5
+kotestabla.tex        az elsõ  kötéstábla kinézetének tex forrása
+
+
+A fordítás menete:
+
+1) latex latexminta    Ez a toc fájlba írja a tartalomjegyzékhez
+                       szükséges oldalszámokat.
+                       Létrehozza a latexminta.dvi fájlt.
+2) latex latexminta    Újabb fordításkor elkészül a tartalomjegyzék és
+                       feloldja a kerszthivatkozásokat.
+                       Elkészíti a végleges a latexminta.dvi fájlt.
+3) dvips latexminta    A dvi fájlból latexminta.ps-t készít.
+
+Pdf változat a ps2pdf programmal készíthetõ.

@@ -1,0 +1,27 @@
+\select@language {magyar} \contentsline {section}{Feladatki\IeC {\'\i }r\'as}{3}%
+\select@language {magyar} \contentsline {section}{Tartalmi \"osszefoglal\'o}{4}%
+\select@language {magyar} \contentsline {section}{Bevezet\'es}{5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {1}Alapfogalmak}{6}%
+\select@language {magyar} \contentsline {chapter}{\numberline {2}A Probl\'ema}{8}%
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Grounded c\'ucs csoport centralit\'as}{8}%
+\select@language {magyar} \contentsline {section}{\numberline {2.2}A feladat neh\'ezs\'ege}{9}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Megold\'asi m\'odszerek}{11}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Futtat\'asi eredm\'enyek}{12}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}\"Osszefoglal\'as}{13}%
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Alc\IeC {\'\i }m}{13}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.1}Al-al c\IeC {\'\i }m}{13}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.2}M\'asik}{13}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.3}Harmadik}{13}%
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Mindj\'art v\'ege a fejezetnek}{13}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Hossz\'u}{14}%
+\select@language {magyar} \contentsline {section}{\numberline {6.1}R\'eszletek}{14}%
+\select@language {magyar} \contentsline {chapter}{\numberline {7}Egyebek}{16}%
+\select@language {magyar} \contentsline {section}{\numberline {7.1}K\"ornyezetek}{16}%
+\select@language {magyar} \contentsline {section}{\numberline {7.2}List\'ak}{17}%
+\select@language {magyar} \contentsline {section}{\numberline {7.3}Egy t\'abl\'azat \'es egy \'abra}{18}%
+\select@language {magyar} \contentsline {chapter}{\numberline {8}F\"uggel\'ek}{20}%
+\select@language {magyar} \contentsline {section}{\numberline {8.1}A program forr\'ask\'odja}{20}%
+\select@language {magyar} \ 
+\select@language {magyar} \contentsline {section}{Nyilatkozat}{21}%
+\select@language {magyar} \contentsline {section}{K\"osz\"onetnyilv\'an\IeC {\'\i }t\'as}{22}%
+\select@language {magyar} \contentsline {section}{Irodalomjegyz\'ek}{23}%
