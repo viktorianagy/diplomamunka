@@ -1,0 +1,128 @@
+import networkx as nx
+import numpy as np
+import itertools
+import scipy
+import json
+from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import eigsh
+
+
+def generate_random_graph(n, p):
+    G = nx.generators.fast_gnp_random_graph(n, p)
+    A = nx.linalg.graphmatrix.adjacency_matrix(G)
+    L = nx.linalg.laplacianmatrix.laplacian_matrix(G)
+    print(A)
+    print(L.todense())
+    return G, A, L
+
+
+def laplacian_spectrum(G):
+    l_spect = nx.laplacian_spectrum(G)
+    return l_spect
+
+
+def spectral_gap(spect):
+    ncc = nx.number_connected_components(G)
+    if ncc == nx.number_of_nodes(G):
+        return 0
+    return spect[ncc]
+
+
+def generate_list(k, n):
+    s = list(range(n))
+    return list(itertools.combinations(s, k))
+
+
+# Work only to csr format
+def delete_from_csr(mat, row_indices=[], col_indices=[]):
+    rows = []
+    cols = []
+
+    if row_indices:
+        rows = list(row_indices)
+
+    if col_indices:
+        cols = list(col_indices)
+
+    if len(rows) > 0 and len(cols) > 0:
+        row_mask = np.ones(mat.shape[0], dtype=bool)
+        row_mask[rows] = False
+        col_mask = np.ones(mat.shape[1], dtype=bool)
+        col_mask[cols] = False
+        return mat[row_mask][:, col_mask]
+    elif len(rows) > 0:
+        mask = np.ones(mat.shape[0], dtype=bool)
+        mask[rows] = False
+        return mat[mask]
+    elif len(cols) > 0:
+        mask = np.ones(mat.shape[1], dtype=bool)
+        mask[cols] = False
+        return mat[:, mask]
+    else:
+        return mat
+
+
+
+
+def  gap_enumerate(G, L):
+    n = nx.number_of_nodes(G)
+    gaps = []
+    max_gap = 0
+    max_set = None
+    max_L_eigs = None
+
+    for k in range(n):
+        list_of_sets = generate_list(k, n)
+
+        for s in list_of_sets:
+            l = list(s)
+            L_red = delete_from_csr(L, l, l)
+            L_red_eigs, L_red_ev = scipy.linalg.eigh(L_red.toarray())
+            i = 0
+
+            while L_red_eigs[i] < 10**-10 and i < n - k and i < len(L_red_eigs) - 1:
+                i+=1
+
+            if L_red_eigs[i] > max_gap:
+                max_gap = L_red_eigs[i]
+                max_set = s
+                max_L_eigs = L_red_eigs
+                print("%.15f" % round(max_gap, 15))
+
+    return max_gap, max_set, max_L_eigs
+
+
+def make_json(A, L, max_gap, max_set, name):
+
+    data = {
+        'adjacency' : str(A),
+        'laplacian': str(L),
+        'max': max_gap,
+        'max set': max_set
+    }
+
+    with open('{}.json'.format(name), 'w') as outfile:
+        json.dump(data, outfile, indent=4)
+
+
+G, A, L = generate_random_graph(20, 0.3)
+spect = laplacian_spectrum(G)
+gap = spectral_gap(spect)
+# print(spect)
+# print(gap)
+B = delete_from_csr(A, [1, 2], [1, 2])
+B = B.astype(float)
+e, v = scipy.linalg.eigh(L.toarray())
+# print("Ez", e)
+# print(type(B))
+# print(B.todense())
+# print(type(B))
+#enumerate(G)
+# print(A.shape)
+# print(type(A))
+
+max_gap, max_set, max_L = gap_enumerate(G, L)
+print(max_gap, max_set, max_L)
+#print(max_L)
+# print(type(max_gap))
+make_json(A, L, max_gap, max_set, "File20-0.3-1")
