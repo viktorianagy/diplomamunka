@@ -35,6 +35,8 @@
 \usepackage{graphicx}
 \usepackage{psfrag}
 \usepackage{tikz} 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 %Tételszerû környezetek definiálhatók, ezek most fejezetenkent egyutt szamozodnak, pl.
 \newtheorem{tét}{Tétel}[chapter]
@@ -49,6 +51,10 @@
 \newtheorem{megj}[tét]{Megjegyzés}
 \newtheorem{pld}[tét]{Példa}
 \newtheorem{prob}[tét]{Probléma}
+
+\floatname{algorithm}{Algoritmus}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
 
 %Margók:
 \hoffset -1in
@@ -258,11 +264,39 @@ A Laplace-Dirichlet mátrix legkisebb sajátértékének maximalizálása NP-nehéz fela
 \end{tét}
 
 \begin{proof}
-Elõször megadunk egy hatékony visszavezetést  VC3RD esetekrõl MaxSEGLD esetekre: \[p: \{G = (V, E), k\} \rightarrow \{G = (V, E), k, 3\}\]
+Elõször megadunk egy hatékony visszavezetést  VC3RD esetekrõl MaxSEGLD esetekre: \[p: \{G = (V, E), k\} \rightarrow \{G = (V, E), k, r\}\]
+Egy $G = (V, E)$ 3-reguláris, összefüggõ, $n$ csúcsú gráfra tekintsük az alábbi $p$ visszavezetést: \[p((G = (V, E), k)) = (G = (V, E), k, 3).\]
+A 2.4. Lemma szerint $p$ egy hatékony visszavezetés a VC3RD-bõl MaxSEGLD-re, amibõl az következik, hogy a MaxSEGL probléma NP-nehéz.
 \end{proof}
 
 \chapter{Megoldási módszerek}
 
+\section{Naiv algoritmus}
+
+Mivel a probléma NP-nehéz, hatékony heurisztikák segítségével próbáljuk megoldani a feladatot. Elõször tekintsünk egy naiv greedy algoritmust.
+
+\begin{tét}[Cauchy átfedési tétele]
+Legyen $A$ egy szimmetrikus $n × n$-es mátrix és legyen $B$ az $A$ mátrix egy $(n - 1) × (n - 1)$ méretû fõ részmátrixa. Ha $\lambda_1 \ge \dots \ge \lambda_n$ és $\mu_1 \ge \dots \ge \mu_{n - 1}$ rendre $A$ és $B$ sajátértékei, akkor \[\lambda_1 \ge \mu_1 \ge \lambda_2 \dots \ge \lambda_{n - 1} \ge \mu_{n - 1} \ge \lambda_n. \]
+\end{tét} 
+
+A Cauchy átfedési tétele alapján, ha adott egy $G = (V, E)$ gráf, csúcsok egy $S$ halmaza és egy $j \in V \setminus S$, akkor $\lambda(S + j) \ge \lambda(S)$. Definiáljuk a $\lambda_S(j) = \lambda(S + j) - \lambda(S)$ értéket, úgy mint a legkisebb sajátérték növekedése, miután hozzáadtuk a $j$ csúcsot az $S$ halmazhoz. Ekkor $\lambda_S(j) \ge 0$ minden $j \in V \setminus S$ esetén. A naiv greedy algoritmus a következõképpen néz ki. Inicializáljuk az $S$ törlendõ csúcsok halmazát üres halmazként. Ezután válasszuk ki iteratívan a $k$ csúcsot $S$-be a $V \setminus S$ halmazból. A mohó algoritmus minden iterációjában a $j$ csúcsot úgy adjuk hozzá $S$-hez, hogy maximalizáljuk $\lambda_S(j)$ mennyiséget. Az algoritmus akkor áll le, ha kiválasztottuk a $k$ csúcsot amit hozzá szeretnénk adni az $S$ csúcshalmazhoz.
+
+\begin{algorithm}
+\caption{Naiv(G, k)}\label{alg:cap}
+\begin{algorithmic}
+\Require Egy $G = (V, E)$ gráf; $k < |V|$ pozitív egész
+\Ensure Csúcsok $k$ elemû $S$ részhalmaza
+\State $S = \emptyset$
+\For{$i = 1$ to $k$}
+\State $\lambda_S(j) = \lambda(S + j) - \lambda(S)$ kiszámítása minden $j \notin S$-re
+\State $s$ kiválasztása úgy, hogy $s \gets argmax_{j /in V \setminus S} \lambda_S(j)$
+\State $S \gets S \cup {s}$
+\EndFor
+\State \Return $S$
+\end{algorithmic}
+\end{algorithm}
+
+Mivel a $\lambda$ függvény nem szubmoduláris, nem tudjuk pontosan megmondani, hogy mekkora a hiba értéke a fent prezentált mohó algoritmus által visszaadott eredmény és az optimális megoldás között. A Futtatási Eredményeknél látni fogjuk, hogy ez az algoritmus sok esetben jobban teljesít mint a következõkben vizsgált módszerek. A Naiv algoritmus számítási igénye leginkább a $\lambda_S(j)$ 
 \chapter{Futtatási eredmények}
 
 \chapter{Összefoglalás}
